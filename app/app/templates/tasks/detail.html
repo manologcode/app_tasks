@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Task Details{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Task Details</h2>
+<div class="bg-white shadow-md rounded-lg p-6">
+    <p><strong>Title:</strong> {{ task.title }}</p>
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Type:</strong> {{ task.task_type }}</p>
+    <p><strong>Status:</strong> {{ 'Completed' if task.status else 'Pending' }}</p>
+    <p><strong>Importance Level:</strong> {{ task.importance_level }}</p>
+    <p><strong>Urgency Level:</strong> {{ task.urgency_level }}</p>
+    <p><strong>Start Time:</strong> {{ task.start_time }}</p>
+    <p><strong>End Time:</strong> {{ task.end_time }}</p>
+    <p><strong>Project ID:</strong> {{ task.project_id }}</p>
+    <p><strong>Created At:</strong> {{ task.created_at }}</p>
+    <a href="{{ url_for('tasks.edit', task_id=task.id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-700">Edit Task</a>
+</div>
+{% endblock %}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <!-- Encabezado -->
+    <header class="flex items-center justify-between bg-blue-600 text-white px-4 py-3">
+        <button id="hamburgerButton" onclick="toggleSidebar()" class="text-2xl">&#9776;</button>
+        <h1 class="text-center text-xl font-semibold flex-grow">Lista de Tareas</h1>
+        <button onclick="toggleTaskModal()" class="text-2xl">+</button>
+    </header>
+    <!-- {% include "includes/side_bar_projects.html" %}   -->
+    <!-- Sidebar de Proyectos -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 bg-white w-64 shadow-lg z-50 transform -translate-x-full transition-transform duration-200">
+        <div class="p-4 border-b flex justify-between items-center">
+            <button onclick="toggleProjectModal()" class="bg-green-500 text-white py-1 px-3 rounded">Nuevo Proyecto</button>
+            <button onclick="toggleSidebar()" class="text-gray-600 text-xl">X</button>
+        </div>
+        <ul class="p-4">
+            <li>Proyecto 1</li>
+            <li>Proyecto 2</li>
+            <li>Proyecto 3</li>
+        </ul>
+    </div>
+
+
+    <!-- Modal para nuevo proyecto -->
+    <div id="sharedModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+    </div>
+
+    <!-- Lista de Etiquetas -->
+    <div class="flex justify-between items-center px-4 py-3 bg-gray-200">
+        <div class="flex space-x-2 overflow-auto">
+            <span class="bg-gray-300 text-gray-700 px-2 py-1 rounded">Etiqueta 1</span>
+            <span class="bg-gray-300 text-gray-700 px-2 py-1 rounded">Etiqueta 2</span>
+            <span class="bg-gray-300 text-gray-700 px-2 py-1 rounded">Etiqueta 3</span>
+            {% for tag in tags %}
+            <span class="bg-gray-300 text-gray-700 px-2 py-1 rounded">{{tag.name}}</span>
+        {% endfor %} 
+        </div>
+        <button onclick="newTag()" class="bg-purple-500 text-white px-2 py-1 rounded">+</button>
+    </div>
+
+    <!-- Lista de Tareas -->
+    <div class="p-4 space-y-4">
+        <!-- Tarea Ejemplo -->
+        <div class="bg-white shadow-md rounded p-4 flex items-center space-x-4">
+            <input type="checkbox" class="form-checkbox h-5 w-5">
+            <div class="flex-grow">
+                <h3 class="font-semibold">Completar informe trimestral</h3>
+                <div class="flex space-x-2 mt-1">
+                    <span class="text-red-500">&#9679;</span>
+                    <span class="text-blue-500">&#9679;</span>
+                    <span class="bg-gray-200 text-gray-700 text-xs px-1 py-0.5 rounded">Urgente</span>
+                    <span class="bg-gray-200 text-gray-700 text-xs px-1 py-0.5 rounded">Finanzas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/shared.js"></script> 
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const hamburgerButton = document.getElementById('hamburgerButton');
+            const isOpen = !sidebar.classList.contains('-translate-x-full');
+            
+            if (isOpen) {
+                sidebar.classList.add('-translate-x-full');
+                hamburgerButton.classList.remove('hidden');
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                hamburgerButton.classList.add('hidden');
+            }
+        }
+
+        function toggleTaskModal() {
+            document.getElementById('taskModal').classList.toggle('hidden');
+        }
+
+        function toggleProjectModal() {
+            document.getElementById('projectModal').classList.toggle('hidden');
+        }
+
+        function newTag() {
+            let url = '/tags/new'
+            open_form_url_modal(url)
+            del_element.addEventListener("click", delete_element);
+        }
+
+
+
+        // let new_element = document.getElementById("new_element")
+
+        
+        // function sendOrder(){
+        //     const urlParams = new URLSearchParams(window.location.search);
+        //     urlParams.set('order', document.getElementById('sel-order').value);
+        //     window.location.search = urlParams;
+        // }
+
+        // function send_print(){
+        //     order = document.getElementById("sel-order").value
+        //     url = "/enterprises/pdf_enter_list?order="+ order
+        //     window.open(url, '_blank').focus()
+        // }
+
+        // function modal_new() {
+        //     let url = '/enterprises/new'
+        //     open_form_url_modal(url)
+        //     del_element.addEventListener("click", delete_element);
+        // }
+
+        // function delete_element() {
+        //     let url = '/enterprises/new'
+        //     console.log(this.value)
+        // }
+
+    </script>
+</body>
+</html>
+

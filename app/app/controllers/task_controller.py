@@ -9,24 +9,23 @@ def get_task_by_id(task_id):
     """Retorna una tarea específica por su ID."""
     return Task.query.get(task_id)
 
-def create_task(data):
+def create_task(request):
     """Crea una nueva tarea en la base de datos."""
     new_task = Task(
-        title=data.get('title'),
-        description=data.get('description'),
-        task_type=data.get('task_type'),
-        status=data.get('status', False),  # Por defecto, estado es False
-        importance_level=data.get('importance_level', 1),
-        urgency_level=data.get('urgency_level', 1),
-        start_time=datetime.fromisoformat(data.get('start_time')) if data.get('start_time') else None,
-        end_time=datetime.fromisoformat(data.get('end_time')) if data.get('end_time') else None,
-        project_id=data.get('project_id'),
-        created_at=datetime.utcnow()
+        title=request.form.get('title'),
+        description=request.form.get('description'),
+        task_type=request.form.get('task_type'),
+        status=request.form.get('status', False),  # Por defecto, estado es False
+        importance_level=request.form.get('importance_level', 1),
+        urgency_level=request.form.get('urgency_level', 1),
+        start_time=datetime.fromisoformat(request.form.get('start_time')) if request.form.get('start_time') else None,
+        end_time=datetime.fromisoformat(request.form.get('end_time')) if request.form.get('end_time') else None,
+        project_id=request.form.get('project_id'),
     )
 
     # Asociar etiquetas a la tarea
-    if 'tags' in data:
-        tag_names = data['tags']
+    if 'tags' in request.form:
+        tag_names = request.form['tags']
         tags = Tag.query.filter(Tag.name.in_(tag_names)).all()
         new_task.tags.extend(tags)
 

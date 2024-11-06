@@ -3,6 +3,9 @@ from app.models import db, Project
 def get_all_projects():
     return Project.query.all()
 
+def get_all_active_projects():
+    return Project.query.filter(Project.status == True).all()
+
 def get_project_by_id(project_id):
     return Project.query.get(project_id)
 

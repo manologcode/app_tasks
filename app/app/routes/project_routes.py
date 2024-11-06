@@ -1,21 +1,10 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import  Blueprint, render_template, redirect, url_for, request, current_app
 from app.models import db, Project
 from app.controllers import project_controller
 
 project_bp = Blueprint('projects', __name__, url_prefix='/projects')
 
-# Obtener la lista de todos los proyectos
-@project_bp.route('/', methods=['GET'])
-def list_projects():
-    projects = project_controller.get_all_projects()
-    return jsonify([{
-        'id': project.id,
-        'name': project.name,
-        'description': project.description,
-        'status': project.status
-    } for project in projects]), 200
-
-# Obtener un proyecto específico por ID
+# Obtener la lista de todos los proyectos# Obtener un proyecto específico por ID
 @project_bp.route('/<int:project_id>', methods=['GET'])
 def get_project(project_id):
     project = project_controller.get_project_by_id(project_id)
@@ -29,24 +18,18 @@ def get_project(project_id):
     else:
         return jsonify({'error': 'Project not found'}), 404
 
-# Crear un nuevo proyecto
-@project_bp.route('/', methods=['POST'])
+@project_bp.route('/new', methods=['GET'])
+def new_project():
+    return render_template("/projects/form_modal.html") 
+
+@project_bp.route('/create', methods=['GET', 'POST'])
 def create_project():
-    data = request.get_json()
-    if not data or 'name' not in data:
-        return jsonify({'error': 'Project name is required'}), 400
-
-    try:
-        project = project_controller.create_project(data)
-        return jsonify({
-            'id': project.id,
-            'name': project.name,
-            'description': project.description,
-            'status': project.status
-        }), 201
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
+    if request.method == 'POST':
+        current_app.logger.info('Creando nueva projects')
+        project_controller.create_project(request)
+        # flash('Task created successfully!', 'success')
+        return redirect(url_for('projects.list_projects'))
+    return render_template('projects/form.html', project=None)
 # Actualizar un proyecto existente
 @project_bp.route('/<int:project_id>', methods=['PUT'])
 def update_project(project_id):

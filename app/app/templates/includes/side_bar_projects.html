@@ -1,0 +1,15 @@
+
+    <!-- Sidebar de Proyectos -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 bg-white w-64 shadow-lg z-50 transform -translate-x-full transition-transform duration-200">
+        <div class="p-4 border-b flex justify-between items-center">
+            <button onclick="toggleProjectModal()" class="bg-green-500 text-white py-1 px-3 rounded">Nuevo Proyecto</button>
+            <button onclick="toggleSidebar()" class="text-gray-600 text-xl">X</button>
+        </div>
+        <ul class="p-4">
+            {% for project in projects %}
+                <li>
+                    <a href="/tasks/?proyect={{project.id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{project.name}}</a>
+                </li>
+            {% endfor %}  
+        </ul>
+    </div>

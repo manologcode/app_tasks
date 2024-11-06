@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Task List</h2>
+<a href="{{ url_for('tasks.create_task') }}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">Create New Task</a>
+<div class="mt-6 bg-white shadow-md rounded-lg p-4">
+    <table class="w-full">
+        <thead>
+            <tr class="bg-gray-200 text-left">
+                <th class="p-2">Title</th>
+                <th class="p-2">Status</th>
+                <th class="p-2">Importance Level</th>
+                <th class="p-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr class="border-b">
+                <td class="p-2">{{ task.title }}</td>
+                <td class="p-2">{{ 'Completed' if task.status else 'Pending' }}</td>
+                <td class="p-2">{{ task.importance_level }}</td>
+                <td class="p-2">
+                    <a href="{{ url_for('tasks.detail_task', task_id=task.id) }}" class="text-blue-500 hover:underline">View</a> |
+                    <a href="{{ url_for('tasks.edit_task', task_id=task.id) }}" class="text-yellow-500 hover:underline">Edit</a> |
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
