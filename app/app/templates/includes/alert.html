@@ -1,0 +1,55 @@
+{% set message_f = get_flashed_messages() %}
+{% set exit_m_f = message_f != [] %}
+{% set message = message_f[0] %}
+{% set message = message | default("") %}
+{% set message_notclose = message['notclose'] | default("") %}
+
+<div id="alert-box" class="fixed bottom-5 right-5 max-w-xs p-4 rounded-lg shadow-lg text-white transition-opacity duration-500 transform {{ message['type'] if message else '' }} {{ 'opacity-100' if message else 'opacity-0' }}">
+    <span id="alert-text" class="block">{{ message['message'] | safe }}</span>
+    <button type="button" class="text-white ml-2 focus:outline-none" onclick="closeAlert()">
+        ✕
+    </button>
+</div>
+
+<script>
+    const alertBox = document.getElementById('alert-box');
+    const alertText = document.getElementById('alert-text');
+    
+    function openAlert(message) {
+        alertText.innerHTML = message['message'];
+        alertBox.classList.remove('opacity-0');
+        alertBox.classList.add('opacity-100');
+        alertBox.classList.add(message['type']);
+        
+        if (message['notclose'] !== 'False') {
+            closeAlertWithDelay();
+        }
+    }
+
+    {% if message is not none %}
+        if ({{ message_notclose | tojson }} !== 'False') {
+            closeAlertWithDelay();
+        }
+    {% endif %}
+
+    function closeAlertWithDelay() {
+        setTimeout(() => {
+            closeAlert();
+        }, 3000);
+    }
+
+    function closeAlert() {
+        alertBox.classList.add('opacity-0');
+        setTimeout(() => {
+            alertBox.classList.remove('opacity-100');
+            alertBox.classList.remove('alert-success', 'alert-error', 'alert-warning'); // Ajuste según el tipo de alertas
+        }, 500);
+    }
+</script>
+
+<style>
+    /* Estilos personalizados para los tipos de alertas en Tailwind */
+    .alert-success { background-color: #34d399; } /* Verde */
+    .alert-error { background-color: #f87171; } /* Rojo */
+    .alert-warning { background-color: #fbbf24; } /* Amarillo */
+</style>

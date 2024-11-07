@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Ejemplo</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen p-4">
+  <div class="max-w-lg w-full bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Formulario de Ejemplo</h2>
+
+    <form class="space-y-4">
+
+      <!-- Campo de texto -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="name">Nombre</label>
+        <input type="text" id="name" placeholder="Ingresa tu nombre" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="email">Correo Electrónico</label>
+        <input type="email" id="email" placeholder="Ingresa tu correo" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Número -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="age">Edad</label>
+        <input type="number" id="age" placeholder="Ingresa tu edad" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Teléfono -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="phone">Teléfono</label>
+        <input type="tel" id="phone" placeholder="Ingresa tu número" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Contraseña -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="Ingresa tu contraseña" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Select -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="country">País</label>
+        <select id="country" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>Selecciona tu país</option>
+          <option>Argentina</option>
+          <option>Chile</option>
+          <option>España</option>
+          <option>México</option>
+        </select>
+      </div>
+
+      <!-- Textarea -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="message">Mensaje</label>
+        <textarea id="message" placeholder="Escribe tu mensaje aquí" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4"></textarea>
+      </div>
+
+      <!-- Checkbox -->
+      <div>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox text-blue-500" />
+          <span class="ml-2 text-gray-700">Aceptar términos y condiciones</span>
+        </label>
+      </div>
+
+      <!-- Radio buttons -->
+      <div>
+        <p class="text-gray-600 font-medium mb-1">Género</p>
+        <label class="inline-flex items-center mr-4">
+          <input type="radio" name="gender" value="male" class="form-radio text-blue-500" />
+          <span class="ml-2 text-gray-700">Masculino</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="radio" name="gender" value="female" class="form-radio text-blue-500" />
+          <span class="ml-2 text-gray-700">Femenino</span>
+        </label>
+      </div>
+
+      <!-- Rango -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="range">Nivel de Satisfacción</label>
+        <input type="range" id="range" min="0" max="10" class="w-full">
+      </div>
+
+      <!-- Fecha -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1" for="date">Fecha de Nacimiento</label>
+        <input type="date" id="date" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Botón de envío -->
+      <div>
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">Enviar</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

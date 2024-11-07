@@ -16,7 +16,8 @@ def detail_tag(tag_id):
 @tag_bp.route('/new', methods=['GET'])
 def new_tag():
     current_app.logger.info('Nueva tag')
-    return render_template("/tags/modal_form.html") 
+    return render_template("/tags/modal_form.html")
+
 @tag_bp.route('/create', methods=['GET', 'POST'])
 def create_tag():
     if request.method == 'POST':

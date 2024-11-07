@@ -1,0 +1,35 @@
+<div class="bg-white p-6 rounded-lg shadow-lg w-80 relative">
+    <button onclick="toggleProjectModal()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">X</button>
+    <h2 class="text-2xl font-semibold mb-4">{{ 'Editar Etiqueta' if project else 'Crear Etiqueta' }}</h2>
+    <form action="{{ url_for('projects.create_project') if not project else url_for('projects.update_project', project_id=project.id) }}" method="post">
+        <div>
+            <label class="block text-gray-600 font-medium mb-1" for="name">Nombre</label>
+            <input type="text" name="name" placeholder="Ingresa tu nombre" value="{{ project.name if project else '' }}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Textarea -->
+        <div>
+            <label class="block text-gray-600 font-medium mb-1" for="message">Descripción</label>
+            <textarea name="description" placeholder="Escribe tu mensaje aquí" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4">{{ project.description if project else '' }}</textarea>
+        </div>
+
+        <!-- Checkbox -->
+        <div>
+            <label class="inline-flex items-center">
+                <input type="checkbox" class="form-checkbox text-blue-500" />
+                <span class="ml-2 text-gray-700">Finalizado</span>
+            </label>
+        </div>
+
+        <div class="flex justify-between mt-4">
+            {% if project %}
+            <button type="button" onclick="deleteProject({{ project.id }})" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-700 flex items-center">
+                <svg class="w-[25px] h-[25px] fill-[#ffffff]" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"></path>
+                  </svg>
+            </button>
+            {% endif %}
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 float-right">Guardar</button>
+        </div>
+    </form>
+</div>

@@ -1,18 +1,19 @@
-# Usa una imagen base de Python
-FROM python:3.10-slim
+FROM python:3.7
 
-# Establece el directorio de trabajo dentro del contenedor
+RUN apt-get update  -y
+
+ENV TZ Europe/Madrid
+
 WORKDIR /app
 
-# Copia los archivos de requisitos y los instala
-COPY requirements.txt .
+ENV PATH="/home/${USER}/app/.local/bin:${PATH}" 
+
+RUN python -m pip install --upgrade pip
+
+RUN pip install gunicorn
+
+RUN pip install mysqlclient  
+COPY ./app/requirements.txt /app
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el resto de la aplicación en el directorio de trabajo
-COPY . .
-
-# Expone el puerto en el que Flask ejecutará la aplicación
 EXPOSE 5000
-
-# Comando para iniciar la aplicación
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]

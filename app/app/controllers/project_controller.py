@@ -9,22 +9,22 @@ def get_all_active_projects():
 def get_project_by_id(project_id):
     return Project.query.get(project_id)
 
-def create_project(data):
+def create_project(request):
     new_project = Project(
-        name=data.get('name'),
-        description=data.get('description'),
-        status=data.get('status', True)  # True por defecto
+        name=request.form.get('name'),
+        description=request.form.get('description'),
+        status=request.form.get('status', True)  # True por defecto
     )
     db.session.add(new_project)
     db.session.commit()
     return new_project
 
-def update_project(project_id, data):
+def update_project(project_id, request):
     project = Project.query.get(project_id)
     if project:
-        project.name = data.get('name', project.name)
-        project.description = data.get('description', project.description)
-        project.status = data.get('status', project.status)
+        project.name = request.form.get('name', project.name)
+        project.description = request.form.get('description', project.description)
+        project.status = request.form.get('status', project.status)
         db.session.commit()
         return project
     return None
